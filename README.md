@@ -1,16 +1,61 @@
-# eslint-plugin-react-perf
+eslint-plugin-react-perf
+========================
 
-## To use this eslint plugin
+Performance-minded React linting rules for ESLint
 
-1. `npm i --save-dev @datanerd/eslint-plugin-react-perf`
+# Installation
 
-2. add the following to your `.eslintrc`
+```sh
+$ npm i eslint-plugin-react-perf
 ```
-  "plugins": ["@datanerd/eslint-plugin-react-perf"],
+
+# Configuration
+
+Add `plugins` section and specify eslint-plugin-react-perf as a plugin.
+
+```json
+{
+  "plugins": [
+    "react-perf"
+  ]
+}
 ```
 
-## To develop this eslint plugin
+# List of supported rules
 
-1. `npm i`
+* [react-perf/no-new-objects-as-props](docs/rules/no-new-objects-as-props.md): Prevent new Object/Array as JSX components
 
-2. `npm test`
+## Recommended
+
+This plugin exports a `recommended` configuration that enforce React good practices.
+
+To enable this configuration use the `extends` property in your `.eslintrc` config file:
+
+```js
+{
+  "extends": ["plugin:react-perf/recommended"]
+}
+```
+
+See [ESLint documentation](http://eslint.org/docs/user-guide/configuring#extending-configuration-files) for more information about extending configuration files.
+
+The rules enabled in this configuration are:
+
+* [react-perf/no-new-objects-as-props](docs/rules/no-new-objects-as-props.md)
+
+## All
+
+This plugin also exports an `all` configuration that includes every available rule.
+
+```js
+{
+  "plugins": [
+    "react-perf"
+  ],
+  "extends": ["plugin:react-perf/all"]
+}
+```
+
+# License
+
+eslint-plugin-react-perf is licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
