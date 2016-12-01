@@ -1,7 +1,3 @@
-/**
- * @fileoverview Enforce style prop value is an object
- * @author David Petersen
- */
 'use strict'
 
 // ------------------------------------------------------------------------------
@@ -120,7 +116,7 @@ var invalidArrayCases = [
       type: 'CallExpression'
     }],
     parserOptions: parserOptions
-  }*/
+  } */
 ]
 
 var invalidObjectCases = [
