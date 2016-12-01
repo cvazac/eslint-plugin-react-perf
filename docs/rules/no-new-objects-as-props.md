@@ -1,51 +1,27 @@
-# Enforce style prop value being an object (style-prop-object)
+# Prevent [...], {...} as JSX props (no-new-objects-as-props)
 
-Require that the value of the prop `style` be an object or a variable that is
-an object.
+Prevent Arrays and Objects from being created in your `render()` and used as JSX props  
 
 ## Rule Details
 
 The following patterns are considered warnings:
 
 ```jsx
-<div style="color: 'red'" />
+<Item config={{}} />
 
-<div style={true} />
+<Item list={[]} />
 
-<Hello style={true} />
+<Item config={config || {}} />
 
-const styles = true;
-<div style={styles} />
+<Item list={list || []} />
 ```
-
-```js
-React.createElement("div", { style: "color: 'red'" });
-
-React.createElement("div", { style: true });
-
-React.createElement("Hello", { style: true });
-
-const styles = true;
-React.createElement("div", { style: styles });
-```
-
 
 The following patterns are not considered warnings:
 
 ```jsx
-<div style={{ color: "red" }} />
+<Item config={staticConfig} />
 
-<Hello style={{ color: "red" }} />
+<Item list={this.props.list} />
 
-const styles = { color: "red" };
-<div style={styles} />
-```
-
-```js
-React.createElement("div", { style: { color: 'red' }});
-
-React.createElement("Hello", { style: { color: 'red' }});
-
-const styles = { height: '100px' };
-React.createElement("div", { style: styles });
+<div style={{display: 'none'}} />
 ```

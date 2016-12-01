@@ -18,6 +18,19 @@ function configureAsError (rules) {
 module.exports = {
   rules: allRules,
   configs: {
+    recommended: {
+      plugins: [
+        'react-perf'
+      ],
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        }
+      },
+      rules: {
+        'react-perf/no-new-objects-as-props': 2
+      }
+    },
     all: {
       plugin: [
         'react-perf'

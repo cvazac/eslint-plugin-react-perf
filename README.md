@@ -23,7 +23,7 @@ Add `plugins` section and specify eslint-plugin-react-perf as a plugin.
 
 # List of supported rules
 
-* [react-perf/no-new-objects-as-props](docs/rules/no-new-objects-as-props.md): Prevent new Object/Array as JSX components
+* [react-perf/no-new-objects-as-props](docs/rules/no-new-objects-as-props.md): Prevent [...], {...} as JSX props
 
 ## Recommended
 
