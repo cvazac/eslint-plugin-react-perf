@@ -17,7 +17,11 @@
     "perf"
   ],
   "author": "Charles Vazac <cvazac@yahoo.com>",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cvazac/eslint-plugin-react-perf.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "doctrine": "^1.2.2",
     "eslint-config-standard": "^6.2.1",
