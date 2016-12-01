@@ -33,17 +33,37 @@ var validDegenerateCases = [
 
 var invalidArrayCases = [
   {
-    code: '<Div prop={[]} />',
+    code: '<Item prop={[]} />',
     errors: [{
       message: errorMessage,
       line: 1,
-      column: 12,
+      column: 13,
       type: 'ArrayExpression'
     }],
     parserOptions: parserOptions
   },
   {
-    code: '<Div prop={false || []} />',
+    code: '<Item prop={false || []} />',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 22,
+      type: 'ArrayExpression'
+    }],
+    parserOptions: parserOptions
+  },
+  {
+    code: '<Item prop={false ? foo : []} />',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 27,
+      type: 'ArrayExpression'
+    }],
+    parserOptions: parserOptions
+  },
+  {
+    code: '<Item prop={false ? [] : foo} />',
     errors: [{
       message: errorMessage,
       line: 1,
@@ -53,85 +73,70 @@ var invalidArrayCases = [
     parserOptions: parserOptions
   },
   {
-    code: '<Div prop={false ? foo : []} />',
+    code: '<Item prop={[1, 2, 3]} />',
     errors: [{
       message: errorMessage,
       line: 1,
-      column: 26,
+      column: 13,
       type: 'ArrayExpression'
     }],
     parserOptions: parserOptions
   },
   {
-    code: '<Div prop={false ? [] : foo} />',
+    code: '<Item prop={new Array()} />',
     errors: [{
       message: errorMessage,
       line: 1,
-      column: 20,
-      type: 'ArrayExpression'
-    }],
-    parserOptions: parserOptions
-  },
-  {
-    code: '<Div prop={[1, 2, 3]} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 12,
-      type: 'ArrayExpression'
-    }],
-    parserOptions: parserOptions
-  },
-  {
-    code: '<Div prop={new Array()} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 12,
+      column: 13,
       type: 'NewExpression'
     }],
     parserOptions: parserOptions
   },
   {
-    code: '<Div prop={Array()} />',
+    code: '<Item prop={Array()} />',
     errors: [{
       message: errorMessage,
       line: 1,
-      column: 12,
+      column: 13,
       type: 'CallExpression'
     }],
     parserOptions: parserOptions
-  }/*,
-  {
-    code: [
-      'const propValue = []',
-      'function getDiv() {',
-      '  return <Div prop={propValue} />',
-      '}'
-    ].join('\n'),
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 12,
-      type: 'CallExpression'
-    }],
-    parserOptions: parserOptions
-  } */
+  }
 ]
 
 var invalidObjectCases = [
   {
-    code: '<Div prop={{}} />',
+    code: '<Item prop={{}} />',
     errors: [{
       message: errorMessage,
       line: 1,
-      column: 12,
+      column: 13,
       type: 'ObjectExpression'
     }],
     parserOptions: parserOptions
   },
   {
-    code: '<Div prop={false || {}} />',
+    code: '<Item prop={false || {}} />',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 22,
+      type: 'ObjectExpression'
+    }],
+    parserOptions: parserOptions
+  },
+  {
+    code: '<Item prop={false ? foo : {}} />',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 27,
+      type: 'ObjectExpression'
+    }],
+    parserOptions: parserOptions
+  },
+  {
+    code: '<Item prop={false ? {} : foo} />',
     errors: [{
       message: errorMessage,
       line: 1,
@@ -141,51 +146,31 @@ var invalidObjectCases = [
     parserOptions: parserOptions
   },
   {
-    code: '<Div prop={false ? foo : {}} />',
+    code: '<Item prop={{foo: 123}} />',
     errors: [{
       message: errorMessage,
       line: 1,
-      column: 26,
+      column: 13,
       type: 'ObjectExpression'
     }],
     parserOptions: parserOptions
   },
   {
-    code: '<Div prop={false ? {} : foo} />',
+    code: '<Item prop={new Object()} />',
     errors: [{
       message: errorMessage,
       line: 1,
-      column: 20,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  },
-  {
-    code: '<Div prop={{foo: 123}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 12,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  },
-  {
-    code: '<Div prop={new Object()} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 12,
+      column: 13,
       type: 'NewExpression'
     }],
     parserOptions: parserOptions
   },
   {
-    code: '<Div prop={Object()} />',
+    code: '<Item prop={Object()} />',
     errors: [{
       message: errorMessage,
       line: 1,
-      column: 12,
+      column: 13,
       type: 'CallExpression'
     }],
     parserOptions: parserOptions
@@ -197,7 +182,7 @@ ruleTester.run('no-prop-arrays', rule, {
   valid: []
     .concat(validDegenerateCases),
     /* {
-      code: '<Div style={{ color: "red" }} />',
+      code: '<Item style={{ color: "red" }} />',
       parserOptions: parserOptions
     },
     {
@@ -208,7 +193,7 @@ ruleTester.run('no-prop-arrays', rule, {
       code: [
         'function redDiv() {',
         '  const styles = { color: "red" };',
-        '  return <Div style={styles} />;',
+        '  return <Item style={styles} />;',
         '}'
       ].join('\n'),
       parserOptions: parserOptions
@@ -226,7 +211,7 @@ ruleTester.run('no-prop-arrays', rule, {
       code: [
         'const styles = { color: "red" };',
         'function redDiv() {',
-        '  return <Div style={styles} />;',
+        '  return <Item style={styles} />;',
         '}'
       ].join('\n'),
       parserOptions: parserOptions
@@ -234,7 +219,7 @@ ruleTester.run('no-prop-arrays', rule, {
     {
       code: [
         'function redDiv(props) {',
-        '  return <Div style={props.styles} />;',
+        '  return <Item style={props.styles} />;',
         '}'
       ].join('\n'),
       parserOptions: parserOptions
@@ -243,7 +228,7 @@ ruleTester.run('no-prop-arrays', rule, {
       code: [
         'import styles from \'./styles\';',
         'function redDiv() {',
-        '  return <Div style={styles} />;',
+        '  return <Item style={styles} />;',
         '}'
       ].join('\n'),
       parserOptions: Object.assign({sourceType: 'module'}, parserOptions)
@@ -253,7 +238,7 @@ ruleTester.run('no-prop-arrays', rule, {
         'import mystyles from \'./styles\';',
         'const styles = Object.assign({ color: \'red\' }, mystyles);',
         'function redDiv() {',
-        '  return <Div style={styles} />;',
+        '  return <Item style={styles} />;',
         '}'
       ].join('\n'),
       parserOptions: Object.assign({sourceType: 'module'}, parserOptions)
@@ -262,19 +247,19 @@ ruleTester.run('no-prop-arrays', rule, {
       code: [
         'const otherProps = { style: { color: "red" } };',
         'const { a, b, ...props } = otherProps;',
-        '<Div {...props} />'
+        '<Item {...props} />'
       ].join('\n'),
       parserOptions: parserOptions
     },
     {
       code: [
         'const styles = Object.assign({ color: \'red\' }, mystyles);',
-        'React.createElement("Div", { style: styles });'
+        'React.createElement("Item", { style: styles });'
       ].join('\n'),
       parserOptions: Object.assign({sourceType: 'module'}, parserOptions)
     },
     {
-      code: '<Div style></Div>',
+      code: '<Item style></Item>',
       parserOptions: parserOptions
     },
     {
@@ -288,18 +273,18 @@ ruleTester.run('no-prop-arrays', rule, {
     {
       code: [
         'let style;',
-        '<Div style={style}></Div>'
+        '<Item style={style}></Item>'
       ].join('\n'),
       parserOptions: parserOptions
     },
     {
-      code: '<Div style={undefined}></Div>',
+      code: '<Item style={undefined}></Item>',
       parserOptions: parserOptions
     },
     {
       code: [
         'const props = { style: undefined };',
-        '<Div {...props} />'
+        '<Item {...props} />'
       ].join('\n'),
       parserOptions: parserOptions
     },
@@ -307,13 +292,13 @@ ruleTester.run('no-prop-arrays', rule, {
       code: [
         'const otherProps = { style: undefined };',
         'const { a, b, ...props } = otherProps;',
-        '<Div {...props} />'
+        '<Item {...props} />'
       ].join('\n'),
       parserOptions: parserOptions
     },
     {
       code: [
-        'React.createElement("Div", {',
+        'React.createElement("Item", {',
         '  style: undefined',
         '})'
       ].join('\n'),
@@ -322,20 +307,20 @@ ruleTester.run('no-prop-arrays', rule, {
     {
       code: [
         'let style;',
-        'React.createElement("Div", {',
+        'React.createElement("Item", {',
         '  style',
         '})'
       ].join('\n'),
       parserOptions: parserOptions
     },
     {
-      code: '<Div style={null}></Div>',
+      code: '<Item style={null}></Item>',
       parserOptions: parserOptions
     },
     {
       code: [
         'const props = { style: null };',
-        '<Div {...props} />'
+        '<Item {...props} />'
       ].join('\n'),
       parserOptions: parserOptions
     },
@@ -343,13 +328,13 @@ ruleTester.run('no-prop-arrays', rule, {
       code: [
         'const otherProps = { style: null };',
         'const { a, b, ...props } = otherProps;',
-        '<Div {...props} />'
+        '<Item {...props} />'
       ].join('\n'),
       parserOptions: parserOptions
     },
     {
       code: [
-        'React.createElement("Div", {',
+        'React.createElement("Item", {',
         '  style: null',
         '})'
       ].join('\n'),
