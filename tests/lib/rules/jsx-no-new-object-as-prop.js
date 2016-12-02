@@ -27,7 +27,6 @@ ruleTester.run('jsx-no-new-object-as-prop', rule, {
       code: '<div prop={{}} />',
       parserOptions: parserOptions
     }),
-
   invalid: []
     .concat([
       {

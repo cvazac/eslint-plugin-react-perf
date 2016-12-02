@@ -22,12 +22,11 @@ var parserOptions = {
 
 var ruleTester = new RuleTester()
 ruleTester.run('jsx-no-new-function-as-prop', rule, {
-  valid: [], /*
+  valid: []
     .concat({
-      code: '<div prop={{}} />',
+      code: '<div prop={this.props.callback} />',
       parserOptions: parserOptions
-    }), */
-
+    }),
   invalid: []
     .concat([
       {

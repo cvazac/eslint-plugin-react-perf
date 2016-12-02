@@ -27,7 +27,6 @@ ruleTester.run('jsx-no-new-array-as-prop', rule, {
       code: '<div prop={[]} />',
       parserOptions: parserOptions
     }),
-
   invalid: []
     .concat([
       {
