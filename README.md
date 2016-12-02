@@ -23,7 +23,8 @@ Add `plugins` section and specify eslint-plugin-react-perf as a plugin.
 
 # List of supported rules
 
-* [react-perf/no-new-objects-as-props](docs/rules/no-new-objects-as-props.md): Prevent [...], {...} as JSX props
+* [react-perf/jsx-no-new-object-as-prop](docs/rules/jsx-no-new-object-as-prop.md): Prevent {...} as JSX props
+* [react-perf/jsx-no-new-array-as-prop](docs/rules/jsx-no-new-array-as-prop.md): Prevent [...] as JSX props
 
 ## Recommended
 
@@ -41,7 +42,8 @@ See [ESLint documentation](http://eslint.org/docs/user-guide/configuring#extendi
 
 The rules enabled in this configuration are:
 
-* [react-perf/no-new-objects-as-props](docs/rules/no-new-objects-as-props.md)
+* [react-perf/jsx-no-new-object-as-prop](docs/rules/jsx-no-new-object-as-prop.md)
+* [react-perf/jsx-no-new-array-as-prop](docs/rules/jsx-no-new-array-as-prop.md)
 
 ## All
 

@@ -1,7 +1,8 @@
 'use strict'
 
 var allRules = {
-  'no-new-objects-as-props': require('./lib/rules/no-new-objects-as-props')
+  'jsx-no-new-object-as-prop': require('./lib/rules/jsx-no-new-object-as-prop'),
+  'jsx-no-new-array-as-prop': require('./lib/rules/jsx-no-new-array-as-prop')
 }
 
 function configureAsError (rules) {
@@ -28,7 +29,8 @@ module.exports = {
         }
       },
       rules: {
-        'react-perf/no-new-objects-as-props': 2
+        'react-perf/jsx-no-new-object-as-prop': 2,
+        'react-perf/jsx-no-new-array-as-prop': 2
       }
     },
     all: {

@@ -16,7 +16,7 @@
     "eslint-plugin",
     "perf"
   ],
-  "author": "Charles Vazac <cvazac@yahoo.com>",
+  "author": "Charles Vazac <cvazac@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git@github.com:cvazac/eslint-plugin-react-perf.git"
