@@ -13,6 +13,7 @@
   "keywords": [
     "react",
     "eslint",
+    "eslintplugin",
     "eslint-plugin",
     "perf"
   ],

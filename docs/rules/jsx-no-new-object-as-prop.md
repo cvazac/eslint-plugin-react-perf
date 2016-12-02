@@ -1,4 +1,4 @@
-# Prevent {...} as JSX prop values (jsx-no-new-object-as-prop)
+# Prevent `{...}` as JSX prop values (jsx-no-new-object-as-prop)
 
 Prevent Objects that are local to the current method from being used as values of JSX props
 
