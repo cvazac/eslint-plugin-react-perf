@@ -33,8 +33,7 @@ module.exports = {
       rules: {
         'react-perf/jsx-no-new-object-as-prop': 2,
         'react-perf/jsx-no-new-array-as-prop': 2,
-        'react-perf/jsx-no-new-function-as-prop': 2,
-        'react-perf/jsx-no-jsx-as-prop': 2
+        'react-perf/jsx-no-new-function-as-prop': 2
       }
     },
     all: {
