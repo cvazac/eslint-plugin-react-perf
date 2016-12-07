@@ -18,6 +18,9 @@
     "perf"
   ],
   "author": "Charles Vazac <cvazac@gmail.com>",
+  "contributors": [
+    "Valjean Clark III <valjeanbud@gmail.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:cvazac/eslint-plugin-react-perf.git"
