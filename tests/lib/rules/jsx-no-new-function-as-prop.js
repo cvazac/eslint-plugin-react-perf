@@ -22,62 +22,63 @@ var parserOptions = {
 
 var ruleTester = new RuleTester()
 ruleTester.run('jsx-no-new-function-as-prop', rule, {
-  valid: []
-    .concat({
-      code: '<div prop={this.props.callback} />',
-      parserOptions: parserOptions
-    }),
-  invalid: []
-    .concat([
-      {
-        code: '<Item prop={function(){}}/>',
-        errors: [{
-          message: errorMessage,
-          line: 1,
-          column: 13,
-          type: 'FunctionExpression'
-        }],
-        parserOptions: parserOptions
-      },
-      {
-        code: "<Item prop={new Function('a', 'alert(a)')}/>",
-        errors: [{
-          message: errorMessage,
-          line: 1,
-          column: 13,
-          type: 'NewExpression'
-        }],
-        parserOptions: parserOptions
-      },
-      {
-        code: '<Item prop={this.props.callback || function(){}}/>',
-        errors: [{
-          message: errorMessage,
-          line: 1,
-          column: 36,
-          type: 'FunctionExpression'
-        }],
-        parserOptions: parserOptions
-      },
-      {
-        code: '<Item prop={this.props.callback ? this.props.callback : function(){}}/>',
-        errors: [{
-          message: errorMessage,
-          line: 1,
-          column: 57,
-          type: 'FunctionExpression'
-        }],
-        parserOptions: parserOptions
-      },
-      {
-        code: '<Item prop={this.props.callback ? function(){} : this.props.callback}/>',
-        errors: [{
-          message: errorMessage,
-          line: 1,
-          column: 35,
-          type: 'FunctionExpression'
-        }],
-        parserOptions: parserOptions
-      }
-    ])
+  valid: [{
+    code: '<div prop={this.props.callback} />',
+    parserOptions: parserOptions
+  }],
+  invalid: [{
+    code: '<Item prop={function(){}}/>',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 13,
+      type: 'FunctionExpression'
+    }],
+    parserOptions: parserOptions
+  }, {
+    code: "<Item prop={new Function('a', 'alert(a)')}/>",
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 13,
+      type: 'NewExpression'
+    }],
+    parserOptions: parserOptions
+  }, {
+    code: '<Item prop={this.props.callback || function(){}}/>',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 36,
+      type: 'FunctionExpression'
+    }],
+    parserOptions: parserOptions
+  }, {
+    code: '<Item prop={this.props.callback ? this.props.callback : function(){}}/>',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 57,
+      type: 'FunctionExpression'
+    }],
+    parserOptions: parserOptions
+  }, {
+    code: '<Item prop={this.props.callback ? function(){} : this.props.callback}/>',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 35,
+      type: 'FunctionExpression'
+    }],
+    parserOptions: parserOptions
+  }, {
+    code: '<Item.tag prop={function(){}}/>',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 17,
+      type: 'FunctionExpression'
+    }],
+    parserOptions: parserOptions
+  }]
 })
