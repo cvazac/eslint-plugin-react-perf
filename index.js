@@ -37,7 +37,7 @@ module.exports = {
       }
     },
     all: {
-      plugin: [
+      plugins: [
         'react-perf'
       ],
       parserOptions: {
