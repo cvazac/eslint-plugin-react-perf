@@ -82,6 +82,15 @@ ruleTester.run('jsx-no-new-array-as-prop', rule, {
       }],
       parserOptions: parserOptions
     }, {
+      code: '<Item prop={new Array} />',
+      errors: [{
+        message: errorMessage,
+        line: 1,
+        column: 13,
+        type: 'NewExpression'
+      }],
+      parserOptions: parserOptions
+    }, {
       code: '<Item prop={Array()} />',
       errors: [{
         message: errorMessage,

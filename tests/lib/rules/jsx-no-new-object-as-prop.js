@@ -74,6 +74,16 @@ ruleTester.run('jsx-no-new-object-as-prop', rule, {
       parserOptions: parserOptions
     },
     {
+      code: '<Item prop={new Object} />',
+      errors: [{
+        message: errorMessage,
+        line: 1,
+        column: 13,
+        type: 'NewExpression'
+      }],
+      parserOptions: parserOptions
+    },
+    {
       code: '<Item prop={new Object()} />',
       errors: [{
         message: errorMessage,
