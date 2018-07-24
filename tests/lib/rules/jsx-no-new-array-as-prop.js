@@ -22,12 +22,12 @@ var parserOptions = {
 
 var ruleTester = new RuleTester()
 ruleTester.run('jsx-no-new-array-as-prop', rule, {
-  valid: [{
+  valid: [/*{
     code: '<div prop={[]} />',
     parserOptions: parserOptions
-  }],
+  }*/],
   invalid: [
-    {
+    /*{
       code: '<Item prop={[]} />',
       errors: [{
         message: errorMessage,
@@ -101,6 +101,17 @@ ruleTester.run('jsx-no-new-array-as-prop', rule, {
       parserOptions: parserOptions
     }, {
       code: '<Item.tag prop={[]} />',
+      errors: [{
+        message: errorMessage,
+        line: 1,
+        column: 17,
+        type: 'ArrayExpression'
+      }],
+      parserOptions: parserOptions
+    }, */{
+      code: `
+const value = [];<Item.tag prop={value} />
+`,
       errors: [{
         message: errorMessage,
         line: 1,

@@ -1,10 +1,10 @@
 'use strict'
 
 var allRules = {
-  'jsx-no-new-object-as-prop': require('./lib/rules/jsx-no-new-object-as-prop'),
+  //'jsx-no-new-object-as-prop': require('./lib/rules/jsx-no-new-object-as-prop'),
   'jsx-no-new-array-as-prop': require('./lib/rules/jsx-no-new-array-as-prop'),
-  'jsx-no-new-function-as-prop': require('./lib/rules/jsx-no-new-function-as-prop'),
-  'jsx-no-jsx-as-prop': require('./lib/rules/jsx-no-jsx-as-prop')
+  //'jsx-no-new-function-as-prop': require('./lib/rules/jsx-no-new-function-as-prop'),
+  //'jsx-no-jsx-as-prop': require('./lib/rules/jsx-no-jsx-as-prop')
 }
 
 function configureAsError (rules) {
