@@ -1,90 +1,37 @@
 'use strict'
 
-// ------------------------------------------------------------------------------
-// Requirements
-// ------------------------------------------------------------------------------
-
-var rule = require('../../../lib/rules/jsx-no-new-function-as-prop')
-var RuleTester = require('eslint').RuleTester
-var errorMessage = 'prop value should not be a function created in render()'
-
-var parserOptions = {
-  ecmaVersion: 6,
-  ecmaFeatures: {
-    experimentalObjectRestSpread: true,
-    jsx: true
+var invalidFunctionExpressions = [
+  {code: '<Item prop={function(){return true}} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'FunctionExpression'
+    }]
   }
-}
-
-// ------------------------------------------------------------------------------
-// Tests
-// ------------------------------------------------------------------------------
-
-var ruleTester = new RuleTester()
-ruleTester.run('jsx-no-new-function-as-prop', rule, {
-  valid: [],
-  invalid: [{
-    code: '<div prop={function(){}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 12,
-      type: 'FunctionExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={function(){}}/>',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'FunctionExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: "<Item prop={new Function('a', 'alert(a)')}/>",
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'NewExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={this.props.callback || function(){}}/>',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 36,
-      type: 'FunctionExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={this.props.callback ? this.props.callback : function(){}}/>',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 57,
-      type: 'FunctionExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={this.props.callback ? function(){} : this.props.callback}/>',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 35,
-      type: 'FunctionExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item.tag prop={function(){}}/>',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 17,
-      type: 'FunctionExpression'
-    }],
-    parserOptions: parserOptions
-  }]
 })
+
+var invalidNewExpressions = [
+  {code: "<Item prop={new Function('a', 'alert(a)')}/>", line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'NewExpression'
+    }]
+  }
+})
+
+module.exports = require('../utils/common').testRule(
+  '../../../lib/rules/jsx-no-new-function-as-prop',
+  'jsx-no-new-function-as-prop',
+  'prop value should not be an Array created in render()',
+  'function(){}',
+  'FunctionExpression',
+  [].concat(
+    invalidFunctionExpressions,
+    invalidNewExpressions))
