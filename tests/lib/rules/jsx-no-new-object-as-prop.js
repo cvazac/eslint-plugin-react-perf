@@ -20,101 +20,75 @@ var parserOptions = {
 // Tests
 // ------------------------------------------------------------------------------
 
-var ruleTester = new RuleTester()
-ruleTester.run('jsx-no-new-object-as-prop', rule, {
-  valid: [],
-  invalid: [{
-    code: '<div prop={{}} />',
+var validExpressions = [
+  '<div prop={{}} />', // TODO(cvazac) https://github.com/cvazac/eslint-plugin-react-perf/issues/10
+  'var a;<div prop={a} />',
+  'var a;a = 1;<div prop={a} />',
+  'var a;a = a;<div prop={a} />',
+  'var a;a = b;<div prop={a} />'
+].map(function(code) {
+  return {
+    code,
+    parserOptions
+  }
+})
+
+var invalidObjectExpressions = [
+  {code: '<Item prop={{}} />', line: 1, column: 13},
+  {code: 'var a = {};<Item prop={a} />', line: 1, column: 13},
+  {code: '<Item prop={false || {}} />', line: 1, column: 22},
+  {code: '<Item prop={false ? foo : {}} />', line: 1, column: 27},
+  {code: '<Item prop={false ? {} : foo} />', line: 1, column: 21},
+  {code: '<Item prop={{foo: 123}} />', line: 1, column: 13},
+  {code: '<Item.tag prop={{}} />', line: 1, column: 17}
+].map(function({code, line, column}) {
+  return {
+    code,
     errors: [{
       message: errorMessage,
-      line: 1,
-      column: 12,
+      line,
+      column,
       type: 'ObjectExpression'
     }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={{}} />',
+    parserOptions
+  }
+})
+
+var invalidNewExpressions = [
+  {code: '<Item prop={new Object} />', line: 1, column: 13},
+  {code: '<Item prop={new Object()} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
     errors: [{
       message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={false || {}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 22,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={false ? foo : {}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 27,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={false ? {} : foo} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 21,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={{foo: 123}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  },
-  {
-    code: '<Item prop={new Object} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
+      line,
+      column,
       type: 'NewExpression'
     }],
-    parserOptions: parserOptions
-  },
-  {
-    code: '<Item prop={new Object()} />',
+    parserOptions
+  }
+})
+
+var invalidCallExpressions = [
+  {code: '<Item prop={Object()} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
     errors: [{
       message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'NewExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={Object()} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
+      line,
+      column,
       type: 'CallExpression'
     }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item.tag prop={{}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 17,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
+    parserOptions
   }
-  ]
+})
+
+new RuleTester().run('jsx-no-new-object-as-prop', rule, {
+  valid: validExpressions,
+  invalid: [].concat(
+    invalidObjectExpressions,
+    invalidNewExpressions,
+    invalidCallExpressions)
 })
