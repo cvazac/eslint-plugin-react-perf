@@ -3,7 +3,7 @@ eslint-plugin-react-perf
 
 Performance-minded React linting rules for ESLint
 
-# Test anti-patterns
+# Test anti-patterns in runtime
 Try out [cvazac/test-ref-pattern](https://github.com/cvazac/test-ref-pattern).
 
 # Installation
