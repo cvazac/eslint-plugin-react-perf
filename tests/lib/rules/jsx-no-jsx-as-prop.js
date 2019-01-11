@@ -22,11 +22,17 @@ var parserOptions = {
 
 var ruleTester = new RuleTester()
 ruleTester.run('jsx-no-jsx-as-prop', rule, {
-  valid: [{
-    code: '<div prop={this.props.jsx} />',
-    parserOptions: parserOptions
-  }],
+  valid: [],
   invalid: [{
+    code: '<div prop={<SubItem />} />',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 12,
+      type: 'JSXElement'
+    }],
+    parserOptions: parserOptions
+  }, {
     code: '<Item prop={<SubItem />}/>',
     errors: [{
       message: errorMessage,
