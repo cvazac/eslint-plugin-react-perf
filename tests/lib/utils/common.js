@@ -40,7 +40,7 @@ function testRule(path, ruleName, errorMessage, ruleCode, ruleType, invalid) {
 
   new RuleTester().run(ruleName, rule, {
     valid: [
-      // '<div prop={{}} />', // TODO(cvazac) https://github.com/cvazac/eslint-plugin-react-perf/issues/10
+      '<Item prop={0} />',
       'var a;<Item prop={a} />',
       'var a;a = 1;<Item prop={a} />',
       'var a;a = a;<Item prop={a} />',
