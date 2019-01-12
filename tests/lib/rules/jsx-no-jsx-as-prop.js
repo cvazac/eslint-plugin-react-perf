@@ -1,6 +1,6 @@
 'use strict'
 
-xvar invalidJSXElements = [
+var invalidJSXElements = [
   {code: '<Item prop={<SubItem prop={val}/>} />', line: 1, column: 13}
 ].map(function({code, line, column}) {
   return {
