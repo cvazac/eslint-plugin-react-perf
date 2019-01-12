@@ -1,6 +1,6 @@
 'use strict'
 
-function testRule(path, ruleName, errorMessage, ruleCode, ruleType, invalid) {
+function testRule(path, ruleName, errorMessage, ruleCode, ruleType, invalid, valid) {
   var rule = require(path)
   var RuleTester = require('eslint').RuleTester
 
@@ -38,14 +38,16 @@ function testRule(path, ruleName, errorMessage, ruleCode, ruleType, invalid) {
     }
   }).concat(invalid)
 
+  valid = [
+    '<Item prop={0} />',
+    'var a;<Item prop={a} />',
+    'var a;a = 1;<Item prop={a} />',
+    'var a;a = a;<Item prop={a} />',
+    'var a;a = b;<Item prop={a} />'
+  ].concat(valid || [])
+
   new RuleTester().run(ruleName, rule, {
-    valid: [
-      '<Item prop={0} />',
-      'var a;<Item prop={a} />',
-      'var a;a = 1;<Item prop={a} />',
-      'var a;a = a;<Item prop={a} />',
-      'var a;a = b;<Item prop={a} />'
-    ].map(function(code) {
+    valid: valid.map((code) => {
       return {
         code,
         parserOptions

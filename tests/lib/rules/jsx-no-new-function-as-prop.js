@@ -26,6 +26,23 @@ var invalidNewExpressions = [
   }
 })
 
+var invalidCallExpressions = [
+  {code: "<Item onClick={this.clickHandler.bind(this)} />", line: 1, column: 16}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'CallExpression'
+    }]
+  }
+})
+
+var validExpressions = [
+  '<Item onClick={bind(foo)} />'
+]
+
 module.exports = require('../utils/common').testRule(
   '../../../lib/rules/jsx-no-new-function-as-prop',
   'jsx-no-new-function-as-prop',
@@ -34,4 +51,6 @@ module.exports = require('../utils/common').testRule(
   'FunctionExpression',
   [].concat(
     invalidFunctionExpressions,
-    invalidNewExpressions))
+    invalidNewExpressions,
+    invalidCallExpressions),
+  validExpressions)
