@@ -43,7 +43,7 @@ var invalidCallExpressions = [
 module.exports = require('../utils/common').testRule(
   '../../../lib/rules/jsx-no-new-array-as-prop',
   'jsx-no-new-array-as-prop',
-  'prop value should not be an Array created in render()',
+  'JSX attribute values should not contain Arrays created in the same scope',
   '[]',
   'ArrayExpression',
   [].concat(

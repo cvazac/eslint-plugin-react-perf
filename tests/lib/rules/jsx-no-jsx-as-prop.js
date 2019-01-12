@@ -16,7 +16,7 @@ xvar invalidJSXElements = [
 module.exports = require('../utils/common').testRule(
   '../../../lib/rules/jsx-no-jsx-as-prop',
   'jsx-no-jsx-as-prop',
-  'prop value should not be JSX created in render()',
+  'JSX attribute values should not contain other JSX',
   '<SubItem />',
   'JSXElement',
   [].concat(invalidJSXElements))

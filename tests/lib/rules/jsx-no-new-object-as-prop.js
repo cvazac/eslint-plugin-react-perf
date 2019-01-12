@@ -43,7 +43,7 @@ var invalidCallExpressions = [
 module.exports = require('../utils/common').testRule(
   '../../../lib/rules/jsx-no-new-object-as-prop',
   'jsx-no-new-object-as-prop',
-  'prop value should not be an Object created in render()',
+  'JSX attribute values should not contain objects created in the same scope',
   '{}',
   'ObjectExpression',
   [].concat(

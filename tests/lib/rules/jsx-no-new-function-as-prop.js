@@ -29,7 +29,7 @@ var invalidNewExpressions = [
 module.exports = require('../utils/common').testRule(
   '../../../lib/rules/jsx-no-new-function-as-prop',
   'jsx-no-new-function-as-prop',
-  'prop value should not be an Array created in render()',
+  'JSX attribute values should not contain functions created in the same scope',
   'function(){}',
   'FunctionExpression',
   [].concat(
