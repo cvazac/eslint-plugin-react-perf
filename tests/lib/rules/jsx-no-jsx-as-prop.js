@@ -1,54 +1,22 @@
 'use strict'
 
-// ------------------------------------------------------------------------------
-// Requirements
-// ------------------------------------------------------------------------------
-
-var rule = require('../../../lib/rules/jsx-no-jsx-as-prop')
-var RuleTester = require('eslint').RuleTester
-var errorMessage = 'prop value should not be JSX created in render()'
-
-var parserOptions = {
-  ecmaVersion: 6,
-  ecmaFeatures: {
-    experimentalObjectRestSpread: true,
-    jsx: true
+var invalidJSXElements = [
+  {code: '<Item prop={<SubItem prop={val}/>} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'JSXElement'
+    }]
   }
-}
-
-// ------------------------------------------------------------------------------
-// Tests
-// ------------------------------------------------------------------------------
-
-var ruleTester = new RuleTester()
-ruleTester.run('jsx-no-jsx-as-prop', rule, {
-  valid: [],
-  invalid: [{
-    code: '<div prop={<SubItem />} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 12,
-      type: 'JSXElement'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={<SubItem />}/>',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'JSXElement'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item.tag prop={<SubItem />}/>',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 17,
-      type: 'JSXElement'
-    }],
-    parserOptions: parserOptions
-  }]
 })
+
+module.exports = require('../utils/common').testRule(
+  '../../../lib/rules/jsx-no-jsx-as-prop',
+  'jsx-no-jsx-as-prop',
+  'JSX attribute values should not contain other JSX',
+  '<SubItem />',
+  'JSXElement',
+  [].concat(invalidJSXElements))

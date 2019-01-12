@@ -1,118 +1,52 @@
 'use strict'
 
-// ------------------------------------------------------------------------------
-// Requirements
-// ------------------------------------------------------------------------------
-
-var rule = require('../../../lib/rules/jsx-no-new-array-as-prop')
-var RuleTester = require('eslint').RuleTester
-var errorMessage = 'prop value should not be an Array created in render()'
-
-var parserOptions = {
-  ecmaVersion: 6,
-  ecmaFeatures: {
-    experimentalArrayRestSpread: true,
-    jsx: true
+var invalidArrayExpressions = [
+  {code: '<Item prop={[1, 2, 3]} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'ArrayExpression'
+    }]
   }
-}
-
-// ------------------------------------------------------------------------------
-// Tests
-// ------------------------------------------------------------------------------
-
-var ruleTester = new RuleTester()
-ruleTester.run('jsx-no-new-array-as-prop', rule, {
-  valid: [],
-  invalid: [{
-    code: '<div prop={[]} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 12,
-      type: 'ArrayExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={[]} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'ArrayExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={false || []} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 22,
-      type: 'ArrayExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={false ? foo : []} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 27,
-      type: 'ArrayExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={false ? [] : foo} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 21,
-      type: 'ArrayExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={[1, 2, 3]} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'ArrayExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={new Array()} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'NewExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={new Array} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'NewExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={Array()} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'CallExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item.tag prop={[]} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 17,
-      type: 'ArrayExpression'
-    }],
-    parserOptions: parserOptions
-  }
-  ]
 })
+
+var invalidNewExpressions = [
+  {code: '<Item prop={new Array} />', line: 1, column: 13},
+  {code: '<Item prop={new Array()} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'NewExpression'
+    }]
+  }
+})
+
+var invalidCallExpressions = [
+  {code: '<Item prop={Array()} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'CallExpression'
+    }]
+  }
+})
+
+module.exports = require('../utils/common').testRule(
+  '../../../lib/rules/jsx-no-new-array-as-prop',
+  'jsx-no-new-array-as-prop',
+  'JSX attribute values should not contain Arrays created in the same scope',
+  '[]',
+  'ArrayExpression',
+  [].concat(
+    invalidArrayExpressions,
+    invalidNewExpressions,
+    invalidCallExpressions))

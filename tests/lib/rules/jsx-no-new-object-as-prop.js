@@ -1,120 +1,52 @@
 'use strict'
 
-// ------------------------------------------------------------------------------
-// Requirements
-// ------------------------------------------------------------------------------
-
-var rule = require('../../../lib/rules/jsx-no-new-object-as-prop')
-var RuleTester = require('eslint').RuleTester
-var errorMessage = 'prop value should not be an Object created in render()'
-
-var parserOptions = {
-  ecmaVersion: 6,
-  ecmaFeatures: {
-    experimentalObjectRestSpread: true,
-    jsx: true
+var invalidObjectExpressions = [
+  {code: '<Item prop={{foo: 123}} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'ObjectExpression'
+    }]
   }
-}
-
-// ------------------------------------------------------------------------------
-// Tests
-// ------------------------------------------------------------------------------
-
-var ruleTester = new RuleTester()
-ruleTester.run('jsx-no-new-object-as-prop', rule, {
-  valid: [],
-  invalid: [{
-    code: '<div prop={{}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 12,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={{}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={false || {}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 22,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={false ? foo : {}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 27,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={false ? {} : foo} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 21,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={{foo: 123}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  },
-  {
-    code: '<Item prop={new Object} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'NewExpression'
-    }],
-    parserOptions: parserOptions
-  },
-  {
-    code: '<Item prop={new Object()} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'NewExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item prop={Object()} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 13,
-      type: 'CallExpression'
-    }],
-    parserOptions: parserOptions
-  }, {
-    code: '<Item.tag prop={{}} />',
-    errors: [{
-      message: errorMessage,
-      line: 1,
-      column: 17,
-      type: 'ObjectExpression'
-    }],
-    parserOptions: parserOptions
-  }
-  ]
 })
+
+var invalidNewExpressions = [
+  {code: '<Item prop={new Object} />', line: 1, column: 13},
+  {code: '<Item prop={new Object()} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'NewExpression'
+    }]
+  }
+})
+
+var invalidCallExpressions = [
+  {code: '<Item prop={Object()} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'CallExpression'
+    }]
+  }
+})
+
+module.exports = require('../utils/common').testRule(
+  '../../../lib/rules/jsx-no-new-object-as-prop',
+  'jsx-no-new-object-as-prop',
+  'JSX attribute values should not contain objects created in the same scope',
+  '{}',
+  'ObjectExpression',
+  [].concat(
+    invalidObjectExpressions,
+    invalidNewExpressions,
+    invalidCallExpressions))
