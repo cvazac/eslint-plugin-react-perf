@@ -22,11 +22,17 @@ var parserOptions = {
 
 var ruleTester = new RuleTester()
 ruleTester.run('jsx-no-new-function-as-prop', rule, {
-  valid: [{
-    code: '<div prop={this.props.callback} />',
-    parserOptions: parserOptions
-  }],
+  valid: [],
   invalid: [{
+    code: '<div prop={function(){}} />',
+    errors: [{
+      message: errorMessage,
+      line: 1,
+      column: 12,
+      type: 'FunctionExpression'
+    }],
+    parserOptions: parserOptions
+  }, {
     code: '<Item prop={function(){}}/>',
     errors: [{
       message: errorMessage,
