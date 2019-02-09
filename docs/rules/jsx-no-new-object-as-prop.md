@@ -16,12 +16,12 @@ The following patterns are considered warnings:
 <Item config={this.props.config || {}} />
 
 <Item config={this.props.config ? this.props.config : {}} />
+
+<div style={{display: 'none'}} />
 ```
 
 The following patterns are not considered warnings:
 
 ```jsx
 <Item config={staticConfig} />
-
-<div style={{display: 'none'}} />
 ```
