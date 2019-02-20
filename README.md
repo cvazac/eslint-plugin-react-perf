@@ -1,7 +1,7 @@
 eslint-plugin-react-perf
 ========================
 
-Performance-minded React linting rules for ESLint
+Performance-minded React linting rules for ESLint (motivated by [esamatti](https://twitter.com/esamatti)'s post ["React.js pure render performance anti-pattern"](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f))
 
 # Installation
 
