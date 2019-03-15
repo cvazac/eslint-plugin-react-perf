@@ -27,7 +27,7 @@ var invalidNewExpressions = [
 })
 
 var invalidCallExpressions = [
-  {code: "<Item onClick={this.clickHandler.bind(this)} />", line: 1, column: 16}
+  {code: '<Item onClick={this.clickHandler.bind(this)} />', line: 1, column: 16}
 ].map(function({code, line, column}) {
   return {
     code,
