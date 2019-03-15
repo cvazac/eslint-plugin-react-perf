@@ -13,6 +13,19 @@ var invalidFunctionExpressions = [
   }
 })
 
+var invalidArrowFunctionExpressions = [
+  {code: '<Item prop={() => true} />', line: 1, column: 13}
+].map(function({code, line, column}) {
+  return {
+    code,
+    errors: [{
+      line,
+      column,
+      type: 'ArrowFunctionExpression'
+    }]
+  }
+})
+
 var invalidNewExpressions = [
   {code: "<Item prop={new Function('a', 'alert(a)')}/>", line: 1, column: 13}
 ].map(function({code, line, column}) {
@@ -51,6 +64,7 @@ module.exports = require('../utils/common').testRule(
   'FunctionExpression',
   [].concat(
     invalidFunctionExpressions,
+    invalidArrowFunctionExpressions,
     invalidNewExpressions,
     invalidCallExpressions),
   validExpressions)
