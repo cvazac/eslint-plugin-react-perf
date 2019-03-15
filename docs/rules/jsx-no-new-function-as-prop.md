@@ -9,6 +9,8 @@ The following patterns are considered warnings:
 ```jsx
 <Item callback={function() {}} />
 
+<Item callback={() => {}} />
+
 <Item callback={new Function(...)} />
 
 <Item callback={Function(...)} />
