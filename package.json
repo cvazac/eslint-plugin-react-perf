@@ -7,7 +7,7 @@
     "lint": "eslint --ext .js ./",
     "lint:watch": "esw --ext .js --watch .",
     "test": "mocha tests/**/*.js",
-    "test:debug": "mocha --inspect --debug-brk tests/**/*.js",
+    "test:debug": "mocha --inspect-brk tests/**/*.js",
     "test:watch": "mocha tests/**/*.js -w",
     "test:coverage": "istanbul cover --dir reports/coverage node_modules/mocha/bin/_mocha tests/**/*.js -- --reporter dot"
   },
