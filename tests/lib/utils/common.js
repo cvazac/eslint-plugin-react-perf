@@ -42,6 +42,22 @@ function testRule(
       code: `let a; a = 1; a = ${ruleCode};<Item prop={a} />`,
       line: 1,
       column: 19
+    },
+    {
+      code: `function foo ({prop = ${ruleCode}}) {
+      return <Comp prop={prop} />
+    }
+    `,
+      line: 1,
+      column: 23
+    },
+    {
+      code: `({prop = ${ruleCode}}) => {
+      return <Comp prop={prop} />
+    }
+    `,
+      line: 1,
+      column: 10
     }
   ]
     .map(function({ code, line, column }) {
@@ -63,7 +79,19 @@ function testRule(
     "var a;<Item prop={a} />",
     "var a;a = 1;<Item prop={a} />",
     "var a;a = a;<Item prop={a} />",
-    "var a;a = b;<Item prop={a} />"
+    "var a;a = b;<Item prop={a} />",
+    `function foo ({prop1, prop2 = ${ruleCode}}) {
+      return <Comp prop={prop1} />
+    }`,
+    `function foo ({prop1 = ${ruleCode}, prop2}) {
+      return <Comp prop={prop2} />
+    }`,
+    `({prop1, prop2 = ${ruleCode}}) => {
+      return <Comp prop={prop1} />
+    }`,
+    `({prop1 = ${ruleCode}, prop2}) => {
+      return <Comp prop={prop2} />
+    }`
   ].concat(valid || []);
 
   new RuleTester().run(ruleName, rule, {
