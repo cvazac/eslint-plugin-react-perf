@@ -1,52 +1,60 @@
-'use strict'
+"use strict";
 
 var invalidObjectExpressions = [
-  {code: '<Item prop={{foo: 123}} />', line: 1, column: 13}
-].map(function({code, line, column}) {
+  { code: "<Item prop={{foo: 123}} />", line: 1, column: 13 }
+].map(function({ code, line, column }) {
   return {
     code,
-    errors: [{
-      line,
-      column,
-      type: 'ObjectExpression'
-    }]
-  }
-})
+    errors: [
+      {
+        line,
+        column,
+        type: "ObjectExpression"
+      }
+    ]
+  };
+});
 
 var invalidNewExpressions = [
-  {code: '<Item prop={new Object} />', line: 1, column: 13},
-  {code: '<Item prop={new Object()} />', line: 1, column: 13}
-].map(function({code, line, column}) {
+  { code: "<Item prop={new Object} />", line: 1, column: 13 },
+  { code: "<Item prop={new Object()} />", line: 1, column: 13 }
+].map(function({ code, line, column }) {
   return {
     code,
-    errors: [{
-      line,
-      column,
-      type: 'NewExpression'
-    }]
-  }
-})
+    errors: [
+      {
+        line,
+        column,
+        type: "NewExpression"
+      }
+    ]
+  };
+});
 
 var invalidCallExpressions = [
-  {code: '<Item prop={Object()} />', line: 1, column: 13}
-].map(function({code, line, column}) {
+  { code: "<Item prop={Object()} />", line: 1, column: 13 }
+].map(function({ code, line, column }) {
   return {
     code,
-    errors: [{
-      line,
-      column,
-      type: 'CallExpression'
-    }]
-  }
-})
+    errors: [
+      {
+        line,
+        column,
+        type: "CallExpression"
+      }
+    ]
+  };
+});
 
-module.exports = require('../utils/common').testRule(
-  '../../../lib/rules/jsx-no-new-object-as-prop',
-  'jsx-no-new-object-as-prop',
-  'JSX attribute values should not contain objects created in the same scope',
-  '{}',
-  'ObjectExpression',
+module.exports = require("../utils/common").testRule(
+  "../../../lib/rules/jsx-no-new-object-as-prop",
+  "jsx-no-new-object-as-prop",
+  "JSX attribute values should not contain objects created in the same scope",
+  "{}",
+  "ObjectExpression",
   [].concat(
     invalidObjectExpressions,
     invalidNewExpressions,
-    invalidCallExpressions))
+    invalidCallExpressions
+  )
+);
