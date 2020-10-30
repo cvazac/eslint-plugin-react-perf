@@ -16,11 +16,18 @@ function testRule(
     ecmaVersion: 6,
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
-      jsx: true
-    }
+      jsx: true,
+    },
   };
 
   invalid = [
+    { code: `<div style={${ruleCode}} />`, line: 1, column: 13 },
+    {
+      code: `<div style={${ruleCode}} />`,
+      options: [{ nativeExcludes: ["styleX"] }],
+      line: 1,
+      column: 13,
+    },
     { code: `<Item prop={${ruleCode}} />`, line: 1, column: 13 },
     { code: `<Item.tag prop={${ruleCode}} />`, line: 1, column: 17 },
     { code: `<Item prop={${ruleCode} || true} />`, line: 1, column: 13 },
@@ -36,12 +43,12 @@ function testRule(
     {
       code: `let a; a = ${ruleCode}; a = 1;<Item prop={a} />`,
       line: 1,
-      column: 12
+      column: 12,
     },
     {
       code: `let a; a = 1; a = ${ruleCode};<Item prop={a} />`,
       line: 1,
-      column: 19
+      column: 19,
     },
     {
       code: `function foo ({prop = ${ruleCode}}) {
@@ -49,7 +56,7 @@ function testRule(
     }
     `,
       line: 1,
-      column: 23
+      column: 23,
     },
     {
       code: `({prop = ${ruleCode}}) => {
@@ -57,58 +64,76 @@ function testRule(
     }
     `,
       line: 1,
-      column: 10
-    }
+      column: 10,
+    },
   ]
-    .map(function({ code, line, column }) {
+    .map(function ({ code, options = [], line, column }) {
       return {
         code,
+        options,
         errors: [
           {
             line,
             column,
-            type: ruleType
-          }
-        ]
+            type: ruleType,
+          },
+        ],
       };
     })
     .concat(invalid);
 
   valid = [
-    "<Item prop={0} />",
-    "var a;<Item prop={a} />",
-    "var a;a = 1;<Item prop={a} />",
-    "var a;a = a;<Item prop={a} />",
-    "var a;a = b;<Item prop={a} />",
-    `function foo ({prop1, prop2 = ${ruleCode}}) {
+    {
+      code: `<div style={${ruleCode}} />`,
+      options: [{ nativeExcludes: "all" }],
+    },
+    {
+      code: `<div style={${ruleCode}} />`,
+      options: [{ nativeExcludes: ["style"] }],
+    },
+    { code: "<Item prop={0} />" },
+    { code: "var a;<Item prop={a} />" },
+    { code: "var a;a = 1;<Item prop={a} />" },
+    { code: "var a;a = a;<Item prop={a} />" },
+    { code: "var a;a = b;<Item prop={a} />" },
+    {
+      code: `function foo ({prop1, prop2 = ${ruleCode}}) {
       return <Comp prop={prop1} />
     }`,
-    `function foo ({prop1 = ${ruleCode}, prop2}) {
+    },
+    {
+      code: `function foo ({prop1 = ${ruleCode}, prop2}) {
       return <Comp prop={prop2} />
     }`,
-    `({prop1, prop2 = ${ruleCode}}) => {
+    },
+    {
+      code: `({prop1, prop2 = ${ruleCode}}) => {
       return <Comp prop={prop1} />
     }`,
-    `({prop1 = ${ruleCode}, prop2}) => {
+    },
+    {
+      code: `({prop1 = ${ruleCode}, prop2}) => {
       return <Comp prop={prop2} />
-    }`
+    }`,
+    },
   ].concat(valid || []);
 
   new RuleTester().run(ruleName, rule, {
-    valid: valid.map(code => {
+    valid: valid.map(({ code, options = [] }) => {
       return {
         code,
-        parserOptions
+        options,
+        parserOptions,
       };
     }),
-    invalid: invalid.map(e => {
+    invalid: invalid.map((e) => {
       e.parserOptions = parserOptions;
       e.errors.message = errorMessage;
       return e;
-    })
+    }),
   });
 }
 
 module.exports = {
-  testRule
+  testRule,
 };
