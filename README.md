@@ -1,5 +1,4 @@
-eslint-plugin-react-perf
-========================
+# eslint-plugin-react-perf
 
 Performance-minded React linting rules for ESLint (motivated by [esamatti](https://twitter.com/esamatti)'s post ["React.js pure render performance anti-pattern"](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f)).
 
@@ -9,24 +8,50 @@ Performance-minded React linting rules for ESLint (motivated by [esamatti](https
 $ npm i eslint-plugin-react-perf
 ```
 
-# Configuration
-
 Add `plugins` section and specify eslint-plugin-react-perf as a plugin.
 
 ```json
 {
-  "plugins": [
-    "react-perf"
-  ]
+  "plugins": ["react-perf"]
 }
 ```
 
 # List of supported rules
 
-* [react-perf/jsx-no-new-object-as-prop](docs/rules/jsx-no-new-object-as-prop.md): Prevent `{...}` as JSX prop value
-* [react-perf/jsx-no-new-array-as-prop](docs/rules/jsx-no-new-array-as-prop.md): Prevent `[...]` as JSX prop value
-* [react-perf/jsx-no-new-function-as-prop](docs/rules/jsx-no-new-function-as-prop.md): Prevent `function` as JSX prop value
-* [react-perf/jsx-no-jsx-as-prop](docs/rules/jsx-no-jsx-as-prop.md): Prevent JSX as JSX prop value
+- [react-perf/jsx-no-new-object-as-prop](docs/rules/jsx-no-new-object-as-prop.md): Prevent `{...}` as JSX prop value
+- [react-perf/jsx-no-new-array-as-prop](docs/rules/jsx-no-new-array-as-prop.md): Prevent `[...]` as JSX prop value
+- [react-perf/jsx-no-new-function-as-prop](docs/rules/jsx-no-new-function-as-prop.md): Prevent `function` as JSX prop value
+- [react-perf/jsx-no-jsx-as-prop](docs/rules/jsx-no-jsx-as-prop.md): Prevent JSX as JSX prop value
+
+# Configuration
+
+As of v3.3.0, each eslint-plugin-react-perf rule supports configuration to control whether native elements (lower case first letter React components) are ignored.
+
+With this configuration, all native elements are ignored for this rule:
+
+```json
+{
+  "react-perf/jsx-no-new-object-as-prop": [
+    "error",
+    {
+      "nativeAllowList": "all"
+    }
+  ]
+}
+```
+
+With this configuration, the "style" attribute is ignored for native elements for this rule:
+
+```json
+{
+  "react-perf/jsx-no-new-object-as-prop": [
+    "error",
+    {
+      "nativeAllowList": ["style"]
+    }
+  ]
+}
+```
 
 ## Recommended
 
@@ -44,10 +69,10 @@ See [ESLint documentation](http://eslint.org/docs/user-guide/configuring#extendi
 
 The rules enabled in this configuration are:
 
-* [react-perf/jsx-no-new-object-as-prop](docs/rules/jsx-no-new-object-as-prop.md)
-* [react-perf/jsx-no-new-array-as-prop](docs/rules/jsx-no-new-array-as-prop.md)
-* [react-perf/jsx-no-new-function-as-prop](docs/rules/jsx-no-new-function-as-prop.md)
-* [react-perf/jsx-no-jsx-as-prop](docs/rules/jsx-no-jsx-as-prop.md)
+- [react-perf/jsx-no-new-object-as-prop](docs/rules/jsx-no-new-object-as-prop.md)
+- [react-perf/jsx-no-new-array-as-prop](docs/rules/jsx-no-new-array-as-prop.md)
+- [react-perf/jsx-no-new-function-as-prop](docs/rules/jsx-no-new-function-as-prop.md)
+- [react-perf/jsx-no-jsx-as-prop](docs/rules/jsx-no-jsx-as-prop.md)
 
 ## All
 
@@ -63,6 +88,7 @@ This plugin also exports an `all` configuration that includes every available ru
 ```
 
 # Test anti-patterns in runtime
+
 Try out [cvazac/test-ref-pattern](https://github.com/cvazac/test-ref-pattern).
 
 # License
