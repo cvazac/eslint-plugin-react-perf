@@ -25,7 +25,7 @@ Add `plugins` section and specify eslint-plugin-react-perf as a plugin.
 
 # Configuration
 
-Each eslint-plugin-react-perf rule supports configuration to control whether native elements (lower case first letter React components) are ignored.
+As of v3.3, each eslint-plugin-react-perf rule supports configuration to control whether native elements (lower case first letter React components) are ignored.
 
 With this configuration, all native elements are ignored for this rule:
 
