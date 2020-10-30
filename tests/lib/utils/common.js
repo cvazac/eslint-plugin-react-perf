@@ -24,7 +24,7 @@ function testRule(
     { code: `<div style={${ruleCode}} />`, line: 1, column: 13 },
     {
       code: `<div style={${ruleCode}} />`,
-      options: [{ nativeExcludes: ["styleX"] }],
+      options: [{ nativeAllowList: ["styleX"] }],
       line: 1,
       column: 13,
     },
@@ -85,11 +85,11 @@ function testRule(
   valid = [
     {
       code: `<div style={${ruleCode}} />`,
-      options: [{ nativeExcludes: "all" }],
+      options: [{ nativeAllowList: "all" }],
     },
     {
       code: `<div style={${ruleCode}} />`,
-      options: [{ nativeExcludes: ["style"] }],
+      options: [{ nativeAllowList: ["style"] }],
     },
     { code: "<Item prop={0} />" },
     { code: "var a;<Item prop={a} />" },

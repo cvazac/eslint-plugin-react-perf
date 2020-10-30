@@ -34,7 +34,7 @@ With this configuration, all native elements are ignored for this rule:
   "react-perf/jsx-no-new-object-as-prop": [
     "error",
     {
-      "nativeExcludes": "all"
+      "nativeAllowList": "all"
     }
   ]
 }
@@ -47,7 +47,7 @@ With this configuration, the "style" attribute is ignored for native elements fo
   "react-perf/jsx-no-new-object-as-prop": [
     "error",
     {
-      "nativeExcludes": ["style"]
+      "nativeAllowList": ["style"]
     }
   ]
 }
