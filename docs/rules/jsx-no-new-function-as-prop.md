@@ -1,4 +1,4 @@
-# Prevent `function` as JSX prop values (jsx-no-new-object-as-prop)
+# Prevent `function` as JSX prop values (jsx-no-new-function-as-prop)
 
 Prevent Functions that are local to the current method from being used as values of JSX props
 
