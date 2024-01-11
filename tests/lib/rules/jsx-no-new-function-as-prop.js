@@ -1,4 +1,5 @@
 "use strict";
+const { testRule}  = require("../utils/common");
 
 var invalidFunctionExpressions = [
   { code: "<Item prop={function(){return true}} />", line: 1, column: 13 },
@@ -66,7 +67,7 @@ var invalidCallExpressions = [
 
 var validExpressions = [{ code: "<Item onClick={bind(foo)} />" }];
 
-module.exports = require("../utils/common").testRule(
+module.exports = testRule(
   "../../../lib/rules/jsx-no-new-function-as-prop",
   "jsx-no-new-function-as-prop",
   "JSX attribute values should not contain functions created in the same scope",
