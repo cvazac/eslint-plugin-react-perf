@@ -1,4 +1,5 @@
 "use strict";
+const { testRule}  = require("../utils/common");
 
 var invalidJSXElements = [
   { code: "<Item prop={<SubItem prop={val}/>} />", line: 1, column: 13 }
@@ -15,7 +16,7 @@ var invalidJSXElements = [
   };
 });
 
-module.exports = require("../utils/common").testRule(
+module.exports = testRule(
   "../../../lib/rules/jsx-no-jsx-as-prop",
   "jsx-no-jsx-as-prop",
   "JSX attribute values should not contain other JSX",

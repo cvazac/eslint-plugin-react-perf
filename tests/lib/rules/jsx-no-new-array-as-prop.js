@@ -1,4 +1,5 @@
 "use strict";
+const { testRule}  = require("../utils/common");
 
 var invalidArrayExpressions = [
   { code: "<Item prop={[1, 2, 3]} />", line: 1, column: 13 }
@@ -46,7 +47,7 @@ var invalidCallExpressions = [
   };
 });
 
-module.exports = require("../utils/common").testRule(
+module.exports = testRule(
   "../../../lib/rules/jsx-no-new-array-as-prop",
   "jsx-no-new-array-as-prop",
   "JSX attribute values should not contain Arrays created in the same scope",

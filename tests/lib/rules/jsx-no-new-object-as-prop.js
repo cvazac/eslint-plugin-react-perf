@@ -1,4 +1,5 @@
 "use strict";
+const { testRule}  = require("../utils/common");
 
 var invalidObjectExpressions = [
   { code: "<Item prop={{foo: 123}} />", line: 1, column: 13 }
@@ -46,7 +47,7 @@ var invalidCallExpressions = [
   };
 });
 
-module.exports = require("../utils/common").testRule(
+module.exports = testRule(
   "../../../lib/rules/jsx-no-new-object-as-prop",
   "jsx-no-new-object-as-prop",
   "JSX attribute values should not contain objects created in the same scope",
