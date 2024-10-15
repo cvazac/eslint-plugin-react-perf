@@ -4,7 +4,7 @@
   "description": "Performance-minded React linting rules for ESLint",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint --ext .js ./",
+    "lint": "eslint",
     "lint:watch": "esw --ext .js --watch .",
     "test": "mocha tests/**/*.js",
     "test:debug": "mocha --inspect-brk tests/**/*.js",
@@ -28,11 +28,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "babel-eslint": "^7.1.0",
-    "eslint": "^5.12.0",
-    "eslint-config-standard": "^6.2.1",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1",
+    "eslint": "^9.12.0",
     "istanbul": "^0.4.5",
     "mocha": "^10.2.0"
   },
