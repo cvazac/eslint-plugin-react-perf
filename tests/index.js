@@ -35,4 +35,15 @@ describe("configurations", function() {
       assert(Boolean(plugin.configs.all.rules["react-perf/" + ruleName]));
     });
   });
+
+  it("should export a flat 'all' configuration", function() {
+    assert(plugin.configs.flat.all);
+    Object.keys(plugin.configs.flat.all.rules).forEach(function(configName) {
+      assert.equal(configName.indexOf("react-perf/"), 0);
+      assert.equal(plugin.configs.flat.all.rules[configName], 2);
+    });
+    ruleFiles.forEach(function(ruleName) {
+      assert(Boolean(plugin.configs.flat.all.rules["react-perf/" + ruleName]));
+    });
+  });
 });

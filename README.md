@@ -57,6 +57,21 @@ With this configuration, the "style" attribute is ignored for native elements fo
 
 This plugin exports a `recommended` configuration that enforce React good practices.
 
+### Flat configuration
+
+To enable this configuration add the following to your eslint.config.js:
+```js
+import reactPerfPlugin from 'eslint-plugin-react-perf';
+
+const config = [
+  reactPerfPlugin.configs.flat.recommended
+];
+
+export default config;
+```
+
+### eslintrc configuration
+
 To enable this configuration use the `extends` property in your `.eslintrc` config file:
 
 ```js
@@ -77,6 +92,21 @@ The rules enabled in this configuration are:
 ## All
 
 This plugin also exports an `all` configuration that includes every available rule.
+
+### Flat configuration
+
+To enable this configuration add the following to your eslint.config.js:
+```js
+import reactPerfPlugin from 'eslint-plugin-react-perf';
+
+const config = [
+  reactPerfPlugin.configs.flat.all
+];
+
+export default config;
+```
+
+### eslintrc configuration
 
 ```js
 {
