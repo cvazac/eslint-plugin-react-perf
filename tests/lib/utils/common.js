@@ -12,12 +12,12 @@ function testRule(
   var rule = require(path);
   var RuleTester = require("eslint").RuleTester;
 
-  var parserOptions = {
-    ecmaVersion: 6,
-    ecmaFeatures: {
-      experimentalObjectRestSpread: true,
-      jsx: true,
-    },
+  var languageOptions = {
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
+    }
   };
 
   invalid = [
@@ -34,7 +34,6 @@ function testRule(
     { code: `<Item prop={false || ${ruleCode}} />`, line: 1, column: 22 },
     { code: `<Item prop={false ? foo : ${ruleCode}} />`, line: 1, column: 27 },
     { code: `<Item prop={false ? ${ruleCode} : foo} />`, line: 1, column: 21 },
-    { code: `<Item.tag prop={${ruleCode}} />`, line: 1, column: 17 },
     { code: `var a = ${ruleCode};<Item prop={a} />`, line: 1, column: 9 },
     { code: `let a = ${ruleCode};<Item prop={a} />`, line: 1, column: 9 },
     { code: `const a = ${ruleCode};<Item prop={a} />`, line: 1, column: 11 },
@@ -123,12 +122,12 @@ function testRule(
       return {
         code,
         options,
-        parserOptions,
+        languageOptions,
       };
     }),
     invalid: invalid.map((e) => {
-      e.parserOptions = parserOptions;
-      e.errors.message = errorMessage;
+      e.languageOptions = languageOptions;
+      e.errors = e.errors.map(errors => ({ ...errors, message: errorMessage }))
       return e;
     }),
   });

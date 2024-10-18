@@ -1,5 +1,7 @@
 "use strict";
 
+var pkg = require('./package.json');
+
 var allRules = {
   "jsx-no-new-object-as-prop": require("./lib/rules/jsx-no-new-object-as-prop"),
   "jsx-no-new-array-as-prop": require("./lib/rules/jsx-no-new-array-as-prop"),
@@ -18,7 +20,11 @@ function configureAsError(rules) {
   return result;
 }
 
-module.exports = {
+var plugin = {
+  meta: {
+    name: pkg.name,
+    version: pkg.version
+  },
   rules: allRules,
   configs: {
     recommended: {
@@ -45,3 +51,18 @@ module.exports = {
     }
   }
 };
+
+plugin.configs.flat = {
+  recommended: {
+    plugins: { "react-perf": plugin },
+    rules: plugin.configs.recommended.rules,
+    languageOptions: { parserOptions: plugin.configs.recommended.parserOptions },
+  },
+  all: {
+    plugins: { "react-perf": plugin },
+    rules: plugin.configs.all.rules,
+    languageOptions: { parserOptions: plugin.configs.all.parserOptions },
+  },
+};
+
+module.exports = plugin;
