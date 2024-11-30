@@ -112,7 +112,12 @@ function testRule(
         { ignoreSources: [{ source: "react-foo", importNames: ["Item"] }] },
       ],
     },
-
+    {
+      code: `import Foo from "react-foo";<Foo.Item style={${ruleCode}} />`,
+      options: [
+        { ignoreSources: [{ source: "react-foo", importNames: ["Item"] }] },
+      ],
+    },
     {
       code: `import {Item} from "react-foo";<Item style={${ruleCode}} />`,
       options: [
