@@ -1,4 +1,4 @@
-# Prevent `[...]` as JSX prop values (jsx-no-new-object-as-prop)
+# Prevent `[...]` as JSX prop values (jsx-no-new-array-as-prop)
 
 Prevent Arrays that are local to the current method from being used as values of JSX props
 
