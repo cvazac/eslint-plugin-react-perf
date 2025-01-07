@@ -90,6 +90,10 @@ function testRule(
       code: `<div style={${ruleCode}} />`,
       options: [{ nativeAllowList: ["style"] }],
     },
+    {
+      code: `<Item classNames={${ruleCode}} />`,
+      options: [{ allowList: ["classNames"] }],
+    },
     { code: "<Item prop={0} />" },
     { code: "var a;<Item prop={a} />" },
     { code: "var a;a = 1;<Item prop={a} />" },

@@ -53,6 +53,21 @@ With this configuration, the "style" attribute is ignored for native elements fo
 }
 ```
 
+As of v3.4.0, each eslint-plugin-react-perf rule supports configuration to control whether custom component's props are ignored.
+
+With this configuration, the "classNames" attribute is ignored for native elements for this rule:
+
+```json
+{
+  "react-perf/jsx-no-new-object-as-prop": [
+    "error",
+    {
+      "allowList": ["classNames"]
+    }
+  ]
+}
+```
+
 ## Recommended
 
 This plugin exports a `recommended` configuration that enforce React good practices.
