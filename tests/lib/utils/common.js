@@ -28,6 +28,14 @@ function testRule(
       line: 1,
       column: 13,
     },
+    {
+      code: `import {Item as ItemFoo} from "react-foo";<ItemFoo style={${ruleCode}} />`,
+      options: [
+        { ignoreSources: [{ source: "react-foo", importNames: ["ItemFoo"] }] },
+      ],
+      line: 1,
+      column: 59,
+    },
     { code: `<Item prop={${ruleCode}} />`, line: 1, column: 13 },
     { code: `<Item.tag prop={${ruleCode}} />`, line: 1, column: 17 },
     { code: `<Item prop={${ruleCode} || true} />`, line: 1, column: 13 },
@@ -89,6 +97,32 @@ function testRule(
     {
       code: `<div style={${ruleCode}} />`,
       options: [{ nativeAllowList: ["style"] }],
+    },
+    {
+      code: `<Item style={${ruleCode}} />`,
+      options: [{ ignoreComponents: ["Item"] }],
+    },
+    {
+      code: `import {Item as ItemFoo} from "react-foo";<ItemFoo style={${ruleCode}} />`,
+      options: [{ ignoreSources: ["react-foo"] }],
+    },
+    {
+      code: `import {Item as ItemFoo} from "react-foo";<ItemFoo style={${ruleCode}} />`,
+      options: [
+        { ignoreSources: [{ source: "react-foo", importNames: ["Item"] }] },
+      ],
+    },
+    {
+      code: `import Foo from "react-foo";<Foo.Item style={${ruleCode}} />`,
+      options: [
+        { ignoreSources: [{ source: "react-foo", importNames: ["Item"] }] },
+      ],
+    },
+    {
+      code: `import {Item} from "react-foo";<Item style={${ruleCode}} />`,
+      options: [
+        { ignoreSources: [{ source: "react-foo", importNames: ["Item"] }] },
+      ],
     },
     { code: "<Item prop={0} />" },
     { code: "var a;<Item prop={a} />" },

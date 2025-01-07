@@ -53,6 +53,52 @@ With this configuration, the "style" attribute is ignored for native elements fo
 }
 ```
 
+As of v3.4.0, each eslint-plugin-react-perf rule supports configuration to control whether custom components are ignored.
+
+With this configuration, every component named "Item" is ignored for this rule:
+
+```json
+{
+  "react-perf/jsx-no-new-object-as-prop": [
+    "error",
+    {
+      "ignoreComponents": ["Item"]
+    }
+  ]
+}
+```
+
+With this configuration, every component imported from "react-foo" is ignored for this rule:
+
+```json
+{
+  "react-perf/jsx-no-new-object-as-prop": [
+    "error",
+    {
+      "ignoreSources": ["react-foo"]
+    }
+  ]
+}
+```
+
+With this configuration, component `Item` and `Item2` imported from "react-foo" is ignored for this rule:
+
+```json
+{
+  "react-perf/jsx-no-new-object-as-prop": [
+    "error",
+    {
+      "ignoreSources": [
+        {
+          "source": "react-foo",
+          "importNames": ["Item", "Item2"]
+        }
+      ]
+    }
+  ]
+}
+```
+
 ## Recommended
 
 This plugin exports a `recommended` configuration that enforce React good practices.
