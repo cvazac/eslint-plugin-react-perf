@@ -12,7 +12,7 @@ var allRules = {
 function configureAsError(rules) {
   var result = {};
   for (var key in rules) {
-    if (!rules.hasOwnProperty(key)) {
+    if (!Object.prototype.hasOwnProperty.call(rules, key)) {
       continue;
     }
     result["react-perf/" + key] = 2;
