@@ -127,7 +127,11 @@ function testRule(
     }),
     invalid: invalid.map((e) => {
       e.languageOptions = languageOptions;
-      e.errors = e.errors.map(errors => ({ ...errors, message: errorMessage }))
+      e.errors = e.errors.map(errors => {
+        var result = { ...errors, message: errorMessage };
+        delete result.type;
+        return result;
+      })
       return e;
     }),
   });
