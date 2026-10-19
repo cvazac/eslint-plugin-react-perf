@@ -9,7 +9,7 @@
     "test": "mocha tests/**/*.js",
     "test:debug": "mocha --inspect-brk tests/**/*.js",
     "test:watch": "mocha tests/**/*.js -w",
-    "test:coverage": "istanbul cover --dir reports/coverage node_modules/mocha/bin/_mocha tests/**/*.js -- --reporter dot"
+"test:coverage": "istanbul cover --dir reports/coverage node_modules/mocha/bin/mocha.js tests/**/*.js -- --reporter dot"
   },
   "keywords": [
     "react",
@@ -32,7 +32,7 @@
     "eslint": "^10.0.0",
     "globals": "^17.3.0",
     "istanbul": "^0.4.5",
-    "mocha": "^10.2.0"
+    "mocha": "^12.0.3"
   },
   "peerDependencies": {
     "eslint": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0"
