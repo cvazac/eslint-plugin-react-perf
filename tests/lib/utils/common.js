@@ -5,7 +5,6 @@ function testRule(
   ruleName,
   errorMessage,
   ruleCode,
-  ruleType,
   invalid,
   valid
 ) {
@@ -74,7 +73,6 @@ function testRule(
           {
             line,
             column,
-            type: ruleType,
           },
         ],
       };

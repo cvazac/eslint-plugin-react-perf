@@ -10,7 +10,6 @@ var invalidObjectExpressions = [
       {
         line,
         column,
-        type: "ObjectExpression"
       }
     ]
   };
@@ -26,7 +25,6 @@ var invalidNewExpressions = [
       {
         line,
         column,
-        type: "NewExpression"
       }
     ]
   };
@@ -41,7 +39,6 @@ var invalidCallExpressions = [
       {
         line,
         column,
-        type: "CallExpression"
       }
     ]
   };
@@ -52,7 +49,6 @@ module.exports = testRule(
   "jsx-no-new-object-as-prop",
   "JSX attribute values should not contain objects created in the same scope",
   "{}",
-  "ObjectExpression",
   [].concat(
     invalidObjectExpressions,
     invalidNewExpressions,
