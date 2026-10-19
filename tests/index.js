@@ -1,4 +1,3 @@
-/* eslint-env mocha */
 "use strict";
 
 var plugin = require("..");
@@ -9,6 +8,9 @@ var path = require("path");
 
 var ruleFiles = fs
   .readdirSync(path.resolve(__dirname, "../lib/rules/"))
+  .filter(function(f) {
+    return path.extname(f) === ".js";
+  })
   .map(function(f) {
     return path.basename(f, ".js");
   });
