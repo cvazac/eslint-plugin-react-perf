@@ -1,26 +1,40 @@
-# Draft release notes
+# eslint-plugin-react-perf 3.4.0
 
-Status: draft for proposed version 3.4.0. ESLint 10 support (#81) is merged. Confirm the final version and publication date before release.
+Release date: 2026-10-18
 
-## Changes
+This minor release adds ESLint 10 support, fixes JSX fragment detection, and improves contributor tooling and dependency maintenance.
 
-- Add ESLint 10 support. Rule tests and preset smoke checks passed against ESLint 9 and 10.
-- Fix `jsx-no-jsx-as-prop` to detect fragment shorthand such as `<Item prop={<>Content</>} />` (PR #72). Users enabling this rule explicitly or through `all` may see new lint errors.
-- Correct the documented `recommended` rule list. The preset still enables only the object, array, and function rules; its settings have not changed.
-- Update development dependency lockfile entries for js-yaml security fixes (PR #80).
+## ESLint 10 support
 
-## Compatibility
+The plugin now accepts ESLint 10 as a peer dependency while retaining its existing ESLint peer dependency ranges (#81). CI checks ESLint 9 and 10 on Node.js 22 and 24.
 
-ESLint 10 requires Node.js ^20.19.0, ^22.13.0, or >=24. This is ESLint 10's requirement; this release does not intentionally raise the plugin's Node.js minimum.
+ESLint 10 requires Node.js `^20.19.0`, `^22.13.0`, or `>=24`. The plugin's declared Node.js engine range is unchanged.
+
+## JSX fragment detection
+
+`react-perf/jsx-no-jsx-as-prop` now detects fragment shorthand as well as JSX elements (#72):
+
+```jsx
+<Item prop={<>Content</>} />
+```
+
+**Users enabling this rule explicitly or through `all` may see new lint errors.** Review these diagnostics when upgrading.
+
+The `recommended` preset continues to enable only the object, array, and function rules. Its settings are unchanged; the README now accurately reflects them (#55, #95). Adding `jsx-no-jsx-as-prop` to `recommended` is planned for a future major release.
+
+## Contributor tooling and dependency updates
+
+- Add contributor setup instructions, a Node.js/ESLint CI matrix, and weekly Dependabot updates (#95).
+- Ignore generated coverage reports and limit rule-export discovery to JavaScript files (#95).
+- Upgrade Mocha to 12 and adapt coverage generation to its supported CLI entry point (#91).
+- Update development dependencies to address reported security vulnerabilities (#80, #87, #88, #89, #91, #92, #94, #97).
+- Upgrade `actions/checkout` and `actions/setup-node` to v7 (#96).
+- Correct the object-rule name in its documentation (#70).
 
 ## Versioning
 
-Proposed policy: existing-rule fixes that report additional violations ship in minor releases; additions to `recommended` ship in major releases. The fragment fix is included in proposed version 3.4.0. Adding `jsx-no-jsx-as-prop` to `recommended` is planned for a future major release and is not part of this release.
+Existing-rule fixes that report additional violations ship in minor releases. Additions to `recommended` ship in major releases. The fragment-detection fix follows this minor-release policy.
 
-## Release checklist
+## Thanks
 
-- PR #81 is merged with a backwards-compatible own-property check.
-- Validate rule tests, preset integration, lint, and package contents on ESLint 9 and 10 using supported Node.js versions.
-- Review full and production-only dependency audit results.
-- Confirm the js-yaml fixes remain in the merged lockfile.
-- Select the release version, update package metadata, and finalize these notes before publishing.
+Thanks to @azat-io for ESLint 10 support, @huynhducduy for the fragment-detection fix, and everyone who reported issues and contributed improvements.
