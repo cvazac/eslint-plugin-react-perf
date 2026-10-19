@@ -2,6 +2,7 @@ const js = require("@eslint/js");
 const globals = require("globals");
 
 const config = [
+  { ignores: ["reports/**"] },
   js.configs.recommended,
   {
     languageOptions: {

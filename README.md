@@ -87,7 +87,8 @@ The rules enabled in this configuration are:
 - [react-perf/jsx-no-new-object-as-prop](docs/rules/jsx-no-new-object-as-prop.md)
 - [react-perf/jsx-no-new-array-as-prop](docs/rules/jsx-no-new-array-as-prop.md)
 - [react-perf/jsx-no-new-function-as-prop](docs/rules/jsx-no-new-function-as-prop.md)
-- [react-perf/jsx-no-jsx-as-prop](docs/rules/jsx-no-jsx-as-prop.md)
+
+`react-perf/jsx-no-jsx-as-prop` is opt-in. Enable it explicitly or use the `all` configuration.
 
 ## All
 
@@ -120,6 +121,10 @@ export default config;
 # Test anti-patterns in runtime
 
 Try out [cvazac/test-ref-pattern](https://github.com/cvazac/test-ref-pattern).
+
+# Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, tests, and dependency updates. See [CHANGELOG.md](CHANGELOG.md) for release changes.
 
 # License
 
