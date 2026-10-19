@@ -80,6 +80,10 @@ function testRule(
     .concat(invalid);
 
   valid = [
+    { code: '<Item disabled label="hello" />' },
+    { code: "<Item prop={Object} />" },
+    { code: "<Item prop={Array} />" },
+    { code: "<Item prop={Function} />" },
     {
       code: `<div style={${ruleCode}} />`,
       options: [{ nativeAllowList: "all" }],
