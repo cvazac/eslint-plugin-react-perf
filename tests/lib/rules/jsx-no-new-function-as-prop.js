@@ -10,7 +10,6 @@ var invalidFunctionExpressions = [
       {
         line,
         column,
-        type: "FunctionExpression",
       },
     ],
   };
@@ -25,7 +24,6 @@ var invalidArrowFunctionExpressions = [
       {
         line,
         column,
-        type: "ArrowFunctionExpression",
       },
     ],
   };
@@ -40,7 +38,6 @@ var invalidNewExpressions = [
       {
         line,
         column,
-        type: "NewExpression",
       },
     ],
   };
@@ -59,7 +56,6 @@ var invalidCallExpressions = [
       {
         line,
         column,
-        type: "CallExpression",
       },
     ],
   };
@@ -72,7 +68,6 @@ module.exports = testRule(
   "jsx-no-new-function-as-prop",
   "JSX attribute values should not contain functions created in the same scope",
   "function(){}",
-  "FunctionExpression",
   [].concat(
     invalidFunctionExpressions,
     invalidArrowFunctionExpressions,

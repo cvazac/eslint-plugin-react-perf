@@ -10,7 +10,6 @@ var invalidJSXElements = [
       {
         line,
         column,
-        type: "JSXElement"
       }
     ]
   };
@@ -25,7 +24,6 @@ var invalidJSXFragments = [
       {
         line,
         column,
-        type: "JSXFragment",
       },
     ],
   };
@@ -36,6 +34,5 @@ module.exports = testRule(
   "jsx-no-jsx-as-prop",
   "JSX attribute values should not contain other JSX",
   "<SubItem />",
-  "JSXElement",
   [].concat(invalidJSXElements, invalidJSXFragments)
 );
