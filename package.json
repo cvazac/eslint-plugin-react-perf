@@ -3,6 +3,12 @@
   "version": "3.4.0",
   "description": "Performance-minded React linting rules for ESLint",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "lib/**/*.js",
+    "docs/",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "lint": "eslint",
     "lint:watch": "esw --ext .js --watch .",
