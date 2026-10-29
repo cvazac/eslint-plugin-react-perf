@@ -1,6 +1,6 @@
 # eslint-plugin-react-perf 3.4.0
 
-Release date: 2026-10-18
+Release date: 2026-10-29
 
 This minor release adds ESLint 10 support, fixes JSX fragment detection, and improves contributor tooling and dependency maintenance.
 
